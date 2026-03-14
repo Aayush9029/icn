@@ -1,5 +1,3 @@
-<img src="assets/icon.png" width="128" alt="icn">
-
 > [!NOTE]  
 > I've reverse engineered the Icon Composer app, this cli allows you (agents) to create app icons using terminal and also export them as PNG.
 
@@ -79,6 +77,7 @@ icn swift --color blue --png --platform macos
 - macOS 14+
 - Xcode 16+ (for Icon Composer support)
 
-## License
 
-MIT
+## All these icons were generated using icn and claude.
+
+<img src="https://github.com/Aayush9029/icn/blob/main/assets/example.png"/>MIT
