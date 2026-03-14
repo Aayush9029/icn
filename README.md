@@ -1,3 +1,5 @@
+<img src="icon.png" width="128" alt="icn — Icon Composer CLI">
+
 # icn
 
 Generate `.icon` files from SF Symbols — the new Apple Icon Composer format (Xcode 16+).
