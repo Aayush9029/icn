@@ -51,7 +51,7 @@ public struct IconConfig: Sendable {
         self.gradientEndColor = gradientEndColor
         self.gradientOrientation = gradientOrientation
         self.symbolImageName = symbolImageName
-        self.symbolScale = symbolScale ?? (glass ? 0.42 : 0.38)
+        self.symbolScale = symbolScale ?? (glass ? 0.63 : 0.57)
         self.glass = glass
         self.shadowOpacity = shadowOpacity
         self.translucencyEnabled = translucencyEnabled

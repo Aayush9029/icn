@@ -47,7 +47,7 @@ struct IconJSONTests {
         #expect(fill["orientation"] != nil)
     }
 
-    @Test("Default scale is 0.38 without glass")
+    @Test("Default scale is 0.57 without glass")
     func defaultScaleNoGlass() throws {
         let config = IconConfig(
             fillStyle: .solid,
@@ -60,7 +60,7 @@ struct IconJSONTests {
         let layers = groups[0]["layers"] as! [[String: Any]]
         let position = layers[0]["position"] as! [String: Any]
         let scale = position["scale"] as! Double
-        #expect(abs(scale - 0.38) < 0.001)
+        #expect(abs(scale - 0.57) < 0.001)
     }
 
     @Test("Glass sets scale to 0.42 and adds glass flag")
@@ -82,7 +82,7 @@ struct IconJSONTests {
 
         let position = layer["position"] as! [String: Any]
         let scale = position["scale"] as! Double
-        #expect(abs(scale - 0.42) < 0.001)
+        #expect(abs(scale - 0.63) < 0.001)
     }
 
     @Test("Non-glass has group name 'Symbol'")

@@ -58,7 +58,7 @@ icn swift --color blue --png --platform macos
 | `-f, --fill` | Fill style: `solid`, `gradient`, `linear` (default: `gradient`) |
 | `--symbol-color` | Symbol foreground color (default: auto black/white) |
 | `-g, --glass` | Enable glass effect |
-| `-s, --scale` | Symbol scale within icon (default: 0.38, glass: 0.42) |
+| `-s, --scale` | Symbol scale within icon (default: 0.57, glass: 0.63) |
 | `-w, --width` | Symbol render width in pixels (default: 1024) |
 | `--height` | Symbol render height (default: proportional) |
 | `--png` | Export composited PNG (pixel-perfect via ictool, or built-in fallback) |

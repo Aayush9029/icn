@@ -28,7 +28,7 @@ struct ICN: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Enable glass effect")
     var glass: Bool = false
 
-    @Option(name: .shortAndLong, help: "Symbol scale within icon (default: 0.38, glass: 0.42)")
+    @Option(name: .shortAndLong, help: "Symbol scale within icon (default: 0.57, glass: 0.63)")
     var scale: Double?
 
     @Option(name: .shortAndLong, help: "Symbol render width in pixels (default: 1024)")

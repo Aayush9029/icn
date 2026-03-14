@@ -77,7 +77,7 @@ public enum IconRenderer {
         drawFill(ctx: ctx, rect: iconRect, options: options)
 
         // Symbol rect
-        let scale = options.symbolScale ?? (options.glass ? 0.42 : 0.38)
+        let scale = options.symbolScale ?? (options.glass ? 0.63 : 0.57)
         let symbolRect = symbolRect(
             symbolSize: symbolNSImage.size,
             iconSize: pt,
