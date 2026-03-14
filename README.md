@@ -34,6 +34,9 @@ icn star.fill --name MyAppIcon --color orange --fill linear --width 2048
 
 # Override auto symbol color
 icn swift --color white --symbol-color black
+
+# Export composited PNG preview alongside .icon
+icn swift --color blue --glass --png
 ```
 
 ## Options
@@ -49,6 +52,7 @@ icn swift --color white --symbol-color black
 | `-s, --scale` | Symbol scale within icon (default: 0.38, glass: 0.42) |
 | `-w, --width` | Symbol render width in pixels (default: 1024) |
 | `--height` | Symbol render height (default: proportional) |
+| `--png` | Also export composited PNG preview |
 | `-o, --output` | Output directory (default: current) |
 
 ## How it works
