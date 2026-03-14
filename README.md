@@ -1,14 +1,11 @@
-## All these icons were generated using icn and claude.
-
-<img src="https://github.com/Aayush9029/icn/blob/main/assets/example.png"/>MIT
-
-
 > [!NOTE]  
 > I've reverse engineered the Icon Composer app, this cli allows you (agents) to create app icons using terminal and also export them as PNG.
 
 # icn
 
-Generate `.icon` files from SF Symbols — the new Apple Icon Composer format (Xcode 16+).
+Generate `.icon`  and .png files from SF Symbols — the new Apple Icon Composer format (Xcode 16+)
+
+<img src="https://github.com/Aayush9029/icn/blob/main/assets/example-image.png"/>
 
 ## Installation
 
