@@ -7,7 +7,7 @@ struct ICN: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "icn",
         abstract: "Generate .icon files from SF Symbols for Apple platforms",
-        version: "0.1.0"
+        version: "0.2.0"
     )
 
     @Argument(help: "SF Symbol name (e.g. swift, heart.fill)")
