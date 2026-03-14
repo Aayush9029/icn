@@ -35,8 +35,14 @@ icn star.fill --name MyAppIcon --color orange --fill linear --width 2048
 # Override auto symbol color
 icn swift --color white --symbol-color black
 
-# Export composited PNG preview alongside .icon
+# Export pixel-perfect PNG (uses ictool from Icon Composer)
 icn swift --color blue --glass --png
+
+# Dark mode rendition
+icn swift --color blue --glass --png --rendition dark
+
+# macOS platform export
+icn swift --color blue --png --platform macos
 ```
 
 ## Options
@@ -52,7 +58,9 @@ icn swift --color blue --glass --png
 | `-s, --scale` | Symbol scale within icon (default: 0.38, glass: 0.42) |
 | `-w, --width` | Symbol render width in pixels (default: 1024) |
 | `--height` | Symbol render height (default: proportional) |
-| `--png` | Also export composited PNG preview |
+| `--png` | Export composited PNG (pixel-perfect via ictool, or built-in fallback) |
+| `--platform` | Target platform: `ios`, `macos`, `watchos` (default: `ios`) |
+| `--rendition` | Rendition: `default`, `dark`, `tinted-dark` (default: `default`) |
 | `-o, --output` | Output directory (default: current) |
 
 ## How it works
@@ -61,6 +69,7 @@ icn swift --color blue --glass --png
 2. Generates an `icon.json` with fill style, scale, shadow, and translucency settings
 3. Bundles them into a `.icon` directory — ready for Xcode or Icon Composer
 4. Auto-detects optimal symbol color (black/white) based on background luminance
+5. `--png` uses Apple's `ictool` (bundled with Icon Composer) for pixel-perfect rendering with full glass, lighting, and shadow effects — falls back to a built-in CoreGraphics renderer if Xcode isn't installed
 
 ## Requirements
 

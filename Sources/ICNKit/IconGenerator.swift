@@ -30,6 +30,8 @@ public struct GeneratorOptions: Sendable {
     public var targetWidth: Int?
     public var targetHeight: Int?
     public var exportPNG: Bool
+    public var platform: Platform
+    public var rendition: Rendition
     public var outputDirectory: String
 
     public init(
@@ -44,6 +46,8 @@ public struct GeneratorOptions: Sendable {
         targetWidth: Int? = nil,
         targetHeight: Int? = nil,
         exportPNG: Bool = false,
+        platform: Platform = .iOS,
+        rendition: Rendition = .default,
         outputDirectory: String = "."
     ) {
         self.fileName = fileName
@@ -57,6 +61,8 @@ public struct GeneratorOptions: Sendable {
         self.targetWidth = targetWidth
         self.targetHeight = targetHeight
         self.exportPNG = exportPNG
+        self.platform = platform
+        self.rendition = rendition
         self.outputDirectory = outputDirectory
     }
 }
@@ -124,10 +130,25 @@ public enum IconGenerator {
 
         // Optionally render composited PNG preview
         if options.exportPNG {
-            let previewData = try IconRenderer.render(options: options)
             let previewURL = URL(fileURLWithPath: options.outputDirectory)
                 .appendingPathComponent("\(options.fileName).png")
-            try previewData.write(to: previewURL)
+
+            if ICTool.isAvailable {
+                // Pixel-perfect rendering via Apple's ictool
+                try ICTool.exportImage(
+                    iconPath: iconDir.path,
+                    outputPath: previewURL.path,
+                    platform: options.platform,
+                    rendition: options.rendition,
+                    width: 1024,
+                    height: 1024,
+                    scale: 1
+                )
+            } else {
+                // Fallback: CoreGraphics approximation
+                let previewData = try IconRenderer.render(options: options)
+                try previewData.write(to: previewURL)
+            }
         }
 
         return iconDir

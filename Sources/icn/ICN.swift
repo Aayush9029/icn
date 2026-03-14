@@ -40,6 +40,12 @@ struct ICN: ParsableCommand {
     @Flag(name: .long, help: "Also export composited PNG preview")
     var png: Bool = false
 
+    @Option(name: .long, help: "Target platform: ios, macos, watchos (default: ios)")
+    var platform: String?
+
+    @Option(name: .long, help: "Rendition: default, dark, tinted-dark (default: default)")
+    var rendition: String?
+
     @Option(name: .shortAndLong, help: "Output directory (default: current)")
     var output: String?
 
@@ -79,6 +85,8 @@ struct ICN: ParsableCommand {
             targetWidth: width,
             targetHeight: height,
             exportPNG: png,
+            platform: parsePlatform(platform),
+            rendition: parseRendition(rendition),
             outputDirectory: outputDir
         )
 
@@ -88,8 +96,25 @@ struct ICN: ParsableCommand {
         if png {
             let pngPath = URL(fileURLWithPath: outputDir)
                 .appendingPathComponent("\(name ?? "AppIcon").png").path
-            Term.printSuccess("Exported \(name ?? "AppIcon").png")
+            let method = ICTool.isAvailable ? "ictool" : "built-in"
+            Term.printSuccess("Exported \(name ?? "AppIcon").png \(Term.dim)(\(method))\(Term.reset)")
             print("  \(Term.dim)\(pngPath)\(Term.reset)")
+        }
+    }
+
+    private func parsePlatform(_ input: String?) -> Platform {
+        switch input?.lowercased() {
+        case "macos", "mac": return .macOS
+        case "watchos", "watch": return .watchOS
+        default: return .iOS
+        }
+    }
+
+    private func parseRendition(_ input: String?) -> Rendition {
+        switch input?.lowercased() {
+        case "dark": return .dark
+        case "tinted-dark", "tinteddark", "tinted": return .tintedDark
+        default: return .default
         }
     }
 }
