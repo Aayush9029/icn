@@ -1,5 +1,8 @@
 > [!NOTE]  
-> I've reverse engineered the Icon Composer app, this cli allows you (agents) to create app icons using terminal and also export them as PNG.
+> I've reverse engineered the Icon Composer app, this cli allows you (agents) to create "placeholder app icons" using terminal and also export them as PNG.
+
+> [!WARNING]  
+> Techincally it is not permitted to use SF Symbols outside of Apple's eco system just like SF Pro. V2 will have ability to swap providers.
 
 # icn
 
