@@ -1,5 +1,8 @@
 <img src="icon.png" width="128" alt="icn — Icon Composer CLI">
 
+> [!NOTE]  
+> I've reverse engineered the Icon Composer app, this cli allows you (agents) to create app icons using terminal and also export them as PNG.
+
 # icn
 
 Generate `.icon` files from SF Symbols — the new Apple Icon Composer format (Xcode 16+).
