@@ -80,8 +80,14 @@ enum Interactive {
         let heightInput = Term.prompt("Symbol height (px)", default: "proportional")
         let targetHeight = heightInput == "proportional" ? nil : Int(heightInput)
 
+        // 9. Export PNG
+        print()
+        let pngInput = Term.prompt("Export composited PNG preview?", default: "n")
+        let exportPNG = pngInput.lowercased().hasPrefix("y")
+
         // Generate
         print()
+        let outputDir = FileManager.default.currentDirectoryPath
         let options = GeneratorOptions(
             fileName: fileName,
             symbolName: symbolName,
@@ -92,13 +98,20 @@ enum Interactive {
             glass: glass,
             targetWidth: targetWidth,
             targetHeight: targetHeight,
-            outputDirectory: FileManager.default.currentDirectoryPath
+            exportPNG: exportPNG,
+            outputDirectory: outputDir
         )
 
         let outputURL = try IconGenerator.generate(options: options)
         print()
         Term.printSuccess("Generated \(outputURL.lastPathComponent)")
         print("    \(Term.dim)\(outputURL.path)\(Term.reset)")
+        if exportPNG {
+            let pngPath = URL(fileURLWithPath: outputDir)
+                .appendingPathComponent("\(fileName).png").path
+            Term.printSuccess("Exported \(fileName).png")
+            print("    \(Term.dim)\(pngPath)\(Term.reset)")
+        }
         print()
     }
 }

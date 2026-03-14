@@ -29,6 +29,7 @@ public struct GeneratorOptions: Sendable {
     public var symbolScale: Double?
     public var targetWidth: Int?
     public var targetHeight: Int?
+    public var exportPNG: Bool
     public var outputDirectory: String
 
     public init(
@@ -42,6 +43,7 @@ public struct GeneratorOptions: Sendable {
         symbolScale: Double? = nil,
         targetWidth: Int? = nil,
         targetHeight: Int? = nil,
+        exportPNG: Bool = false,
         outputDirectory: String = "."
     ) {
         self.fileName = fileName
@@ -54,6 +56,7 @@ public struct GeneratorOptions: Sendable {
         self.symbolScale = symbolScale
         self.targetWidth = targetWidth
         self.targetHeight = targetHeight
+        self.exportPNG = exportPNG
         self.outputDirectory = outputDirectory
     }
 }
@@ -117,6 +120,14 @@ public enum IconGenerator {
             try jsonData.write(to: jsonURL)
         } catch {
             throw IconGeneratorError.jsonWriteFailed(error.localizedDescription)
+        }
+
+        // Optionally render composited PNG preview
+        if options.exportPNG {
+            let previewData = try IconRenderer.render(options: options)
+            let previewURL = URL(fileURLWithPath: options.outputDirectory)
+                .appendingPathComponent("\(options.fileName).png")
+            try previewData.write(to: previewURL)
         }
 
         return iconDir

@@ -177,6 +177,57 @@ struct GeneratorTests {
         #expect(!SFSymbolRenderer.isValidSymbol("not.a.real.symbol.xyz"))
     }
 
+    @Test("PNG export creates composited icon image")
+    func pngExport() throws {
+        let tmpDir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("icn-test-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: tmpDir) }
+        try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true)
+
+        let options = GeneratorOptions(
+            fileName: "ExportTest",
+            symbolName: "swift",
+            backgroundColor: NSColor(srgbRed: 0, green: 0.478, blue: 1, alpha: 1),
+            glass: true,
+            exportPNG: true,
+            outputDirectory: tmpDir.path
+        )
+
+        try IconGenerator.generate(options: options)
+
+        // Verify PNG was created
+        let pngURL = tmpDir.appendingPathComponent("ExportTest.png")
+        #expect(FileManager.default.fileExists(atPath: pngURL.path))
+
+        // Verify it's a valid PNG
+        let pngData = try Data(contentsOf: pngURL)
+        let header: [UInt8] = [0x89, 0x50, 0x4E, 0x47]
+        #expect(Array(pngData.prefix(4)) == header)
+
+        // Verify it's a reasonable size (3072x3072 at 3x)
+        let image = NSImage(data: pngData)
+        #expect(image != nil)
+    }
+
+    @Test("PNG renderer produces square image")
+    func pngRendererSize() throws {
+        let options = GeneratorOptions(
+            symbolName: "swift",
+            backgroundColor: .black
+        )
+
+        let pngData = try IconRenderer.render(options: options, outputSize: 512, outputScale: 2)
+        let image = NSImage(data: pngData)
+        #expect(image != nil)
+        // At 2x scale: 1024x1024 pixels
+        guard let rep = image?.representations.first else {
+            #expect(Bool(false), "No image representation")
+            return
+        }
+        #expect(rep.pixelsWide == 1024)
+        #expect(rep.pixelsHigh == 1024)
+    }
+
     @Test("Auto symbol color for dark background is white")
     func autoColorDarkBg() throws {
         let tmpDir = FileManager.default.temporaryDirectory

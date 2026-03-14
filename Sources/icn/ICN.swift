@@ -37,6 +37,9 @@ struct ICN: ParsableCommand {
     @Option(name: .long, help: "Symbol render height in pixels (default: proportional)")
     var height: Int?
 
+    @Flag(name: .long, help: "Also export composited PNG preview")
+    var png: Bool = false
+
     @Option(name: .shortAndLong, help: "Output directory (default: current)")
     var output: String?
 
@@ -75,11 +78,18 @@ struct ICN: ParsableCommand {
             symbolScale: scale,
             targetWidth: width,
             targetHeight: height,
+            exportPNG: png,
             outputDirectory: outputDir
         )
 
         let outputURL = try IconGenerator.generate(options: options)
         Term.printSuccess("Generated \(outputURL.lastPathComponent)")
         print("  \(Term.dim)\(outputURL.path)\(Term.reset)")
+        if png {
+            let pngPath = URL(fileURLWithPath: outputDir)
+                .appendingPathComponent("\(name ?? "AppIcon").png").path
+            Term.printSuccess("Exported \(name ?? "AppIcon").png")
+            print("  \(Term.dim)\(pngPath)\(Term.reset)")
+        }
     }
 }
