@@ -10,6 +10,8 @@ Generate `.icon`  and .png files from SF Symbols — the new Apple Icon Composer
 
 <img src="https://github.com/Aayush9029/icn/blob/main/assets/example-image.png"/>
 
+<p align="center"><img src="assets/demo.gif" alt="icn demo" width="800"></p>
+
 ## Installation
 
 ```bash
