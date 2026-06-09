@@ -6,6 +6,7 @@ let package = Package(
     platforms: [.macOS(.v14)],
     products: [
         .executable(name: "icn", targets: ["icn"]),
+        .executable(name: "icn-demo", targets: ["ICNDemo"]),
         .library(name: "ICNKit", targets: ["ICNKit"]),
     ],
     dependencies: [
@@ -18,6 +19,10 @@ let package = Package(
                 "ICNKit",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
+        ),
+        .executableTarget(
+            name: "ICNDemo",
+            dependencies: ["ICNKit"]
         ),
         .target(name: "ICNKit"),
         .testTarget(

@@ -39,6 +39,15 @@ icn swift --color blue --glass --png --rendition dark # dark mode
 icn swift --color blue --png --platform macos          # macOS platform
 ```
 
+## macOS demo
+
+`icn-demo` is a small SwiftUI wrapper around `ICNKit` generation.
+
+```bash
+swift run icn-demo
+swift run icn-demo --smoke-test
+```
+
 ## Options
 
 | Flag | Description |
