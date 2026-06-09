@@ -1,7 +1,7 @@
 import AppKit
 import Foundation
 
-public enum IconGeneratorError: Error, CustomStringConvertible {
+public enum IconGeneratorError: Error, CustomStringConvertible, Sendable {
     case outputDirectoryCreationFailed(String)
     case jsonWriteFailed(String)
     case pngWriteFailed(String)

@@ -1,6 +1,6 @@
 import AppKit
 
-public enum SFSymbolError: Error, CustomStringConvertible {
+public enum SFSymbolError: Error, CustomStringConvertible, Sendable {
     case symbolNotFound(String)
     case renderingFailed
     case pngConversionFailed
@@ -42,7 +42,6 @@ public enum SFSymbolRenderer {
         // Calculate target dimensions
         let defaultWidth: CGFloat = 1024
         let targetW: CGFloat
-        let targetH: CGFloat
 
         if let w = targetWidth, let h = targetHeight {
             // Fit within bounds, maintaining aspect ratio
@@ -50,13 +49,10 @@ public enum SFSymbolRenderer {
             let scaleH = CGFloat(h) / refPixelH
             let scale = min(scaleW, scaleH)
             targetW = refPixelW * scale
-            targetH = refPixelH * scale
         } else if let w = targetWidth {
             targetW = CGFloat(w)
-            targetH = targetW * (refPixelH / refPixelW)
         } else {
             targetW = defaultWidth
-            targetH = defaultWidth * (refPixelH / refPixelW)
         }
 
         // Calculate point size to achieve target pixel width at 3x
